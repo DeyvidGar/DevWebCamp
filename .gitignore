@@ -2,7 +2,6 @@ src/
 vendor/
 node_modules/
 .env
-appsalon_mvc.sql
 gulpfile.js
 package-lock.json
 package.json
