@@ -104,8 +104,8 @@ class ActiveRecord {
     }
 
     // Obtener todos los Registros
-    public static function all() {
-        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC";
+    public static function all($orden = 'DESC') {
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id ${orden}";
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
@@ -129,6 +129,19 @@ class ActiveRecord {
         $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} = '${valor}'";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
+    }
+
+    //busqueda con multiples condiciones en el WHERE, usar el array en la consulta sql este debe ser un arreglo asiciativo ya que la KEY de be ser el nombre de la columna y el VALUE el valor de buscamos en el where
+    public static function whereArray($array = []) {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE ";
+        foreach ($array as $key => $value) {
+            // array_key_last($array); con los metodos de php identificamos el ultimo key(columna) que itera el arraglo que recibe.
+            if($key === array_key_last($array)) $query .= "${key} = ${value}";
+            else $query .= "${key} = ${value} AND ";
+        }
+        // echo $query;
+        $resultado = self::consultarSQL($query);
+        return $resultado ;
     }
 
     //obtener el numero total de registros en una tabla

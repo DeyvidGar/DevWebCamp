@@ -1,0 +1,8 @@
+@use 'base/mixins' as m;
+.auth{ //bloque
+    @include m.contenedor-sm;
+    &__heading{//elemento
+        &--blanco{//modificador
+        }
+    }
+}

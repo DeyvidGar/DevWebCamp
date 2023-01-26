@@ -1,0 +1,23 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.formulario__submit{
+    @include m.boton(v.$azul, v.$blanco);
+    width: auto;
+    align-self: flex-start;
+    &--registrar{
+        width: 100%;
+    }
+}
+.dashboard__submit--logout{
+    @include m.boton(darken(v.$secundario, 20), v.$blanco);
+    border-radius: 10px;
+    padding: 1rem;
+}
+.dashboard__boton{
+    @include m.boton(v.$azul, v.$blanco);
+    font-size: 1.4rem;
+    @include m.tablet {
+        width: auto;
+    }
+}

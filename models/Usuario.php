@@ -5,7 +5,14 @@ namespace Model;
 class Usuario extends ActiveRecord {
     protected static $tabla = 'usuarios';
     protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'confirmado', 'token', 'admin'];
-    
+    public $id;
+    public $nombre;
+    public $apellido;
+    public $email;
+    public $password;
+    public $confirmado;
+    public $token;
+    public $admin;
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
@@ -68,7 +75,7 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
-    // Valida el Password 
+    // Valida el Password
     public function validarPassword() {
         if(!$this->password) {
             self::$alertas['error'][] = 'El Password no puede ir vacio';

@@ -400,18 +400,22 @@ h3 {
   display: block;
   color: rgba(26, 27, 21, 0.8);
 }
-.formulario__input, .formulario__input--sociales {
+.formulario__input, .formulario__input--sociales, .formulario__select--sociales, .formulario__select {
   padding: 1rem;
   border: 1px solid #b1c7dd;
   border-radius: 0.5rem;
 }
-.formulario__input--file {
+.formulario__input--file, .formulario__select--file {
   border: none;
 }
-.formulario__input--sociales {
+.formulario__input--sociales, .formulario__select--sociales {
   flex: 1;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+.formulario__radio {
+  display: flex;
+  gap: 2rem;
 }
 .formulario__listado {
   padding: 0;
@@ -458,6 +462,49 @@ h3 {
   color: #1a1b15;
   font-size: 1.4rem;
   font-weight: 300;
+}
+
+.horas {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: grid;
+  gap: 1;
+  grid-template-columns: repeat(1, 1fr);
+  margin: 1.5rem 0;
+}
+@media (min-width: 768px) {
+  .horas {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.horas__hora {
+  color: #007df4;
+  border: 1px solid #007df4;
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: center;
+}
+.horas__hora:hover {
+  cursor: pointer;
+  background-color: #e5f2ff;
+}
+.horas__hora--seleccionado {
+  background-color: #4ca8ff;
+  color: #FFFFFF;
+}
+.horas__hora--seleccionado:hover {
+  background-color: #5bafff;
+}
+.horas__hora--desabilitado {
+  color: #64748B;
+  border: 1px solid #64748B;
+  opacity: 0.4;
+}
+.horas__hora--desabilitado:hover {
+  cursor: no-drop;
 }
 
 .header {
