@@ -6,6 +6,11 @@
         const inputHiddenDias = document.querySelector('#dia_id');
         const inputHiddenHoras = document.querySelector('[name="hora_id"]');
 
+        //seleccionar la hora del registro
+        const idHorasEditar = inputHiddenHoras.value;
+        const categoriaEditar = categoria.value;
+        const diasEditar = document.querySelector('[name="dia_id"]:checked') ? +document.querySelector('[name="dia_id"]:checked').value : '';
+
         categoria.addEventListener('change', llenarBusqueda);
         dias.forEach(dia => dia.addEventListener('change', llenarBusqueda));
 
@@ -23,18 +28,21 @@
             (async () => {
                 await buscarEventos();
 
-                //seleccionar la hora del registro
-                const id = inputHiddenHoras.value;
-                if(!id) return;
-                const horaSeleccionada = document.querySelector(`[data-hora-id="${id}"]`);
-                horaSeleccionada.classList.remove('horas__hora--desabilitado');
-                horaSeleccionada.classList.add('horas__hora--seleccionado');
-                horaSeleccionada.onclick = seleccionarHora;
+                seleccionarSeleccionEditando();
             })();
         }
 
-            function llenarBusqueda(e){
-                busqueda[e.target.name] = parseInt(e.target.value);
+        function seleccionarSeleccionEditando(){
+            if(busqueda.categoria_id == categoriaEditar && busqueda.dia_id == diasEditar){
+                const horaSeleccionada = document.querySelector(`[data-hora-id="${idHorasEditar}"]`);
+                horaSeleccionada.classList.remove('horas__hora--desabilitado');
+                horaSeleccionada.classList.add('horas__hora--seleccionado');
+                // horaSeleccionada.onclick = seleccionarHora;
+            }
+        }
+
+        function llenarBusqueda(e){
+            busqueda[e.target.name] = parseInt(e.target.value);
 
             // para que se actualizen los campos con cada cambio en el campo check y select debemos: reiniciar campos ocultos y borrar el campo seleccionado
             // Reiniciar los campos ocultos
@@ -67,6 +75,8 @@
                 hora.removeEventListener('click', seleccionarHora);
                 }
             );
+
+            seleccionarSeleccionEditando();
 
             // obtener solo las horas que ya estan registradas en la base de datos pendiendo del dia y categoria del evento
             const idHorasDisponibles = eventos.map(evento => evento.hora_id);
