@@ -7,7 +7,7 @@
     </a>
 </div>
 
-<div class="dashboard__formulario" id="formulario_crear_ponente">
+<div class="dashboard__formulario" id="formulario_crear_evento">
     <?php include_once __DIR__. '/../../templates/alertas.php';?>
     <form action="/admin/eventos/crear" method="POST" enctype="multipart/form-data" class="formulario">
 

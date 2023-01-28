@@ -5,7 +5,7 @@ namespace Controllers;
 use Model\EventoHorario;
 
 //ESTA API SE CREA PARA QUE NUESTRO JS CONSULTE DATOS QUE SE ENCUENTRAN EL BASE DE DATOS Y EVALUAR LOS TIPO DE DATOS QUE REQUIERA MOSTRAR ETC.
-class APIEventosController {
+class APIEventos {
     public static function index() {
         $dia_id = $_GET['dia_id'] ?? '';
         $categoria_id = $_GET['categoria_id'] ?? '';

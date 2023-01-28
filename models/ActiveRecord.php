@@ -117,6 +117,13 @@ class ActiveRecord {
         return array_shift( $resultado ) ;
     }
 
+    // Busca un registro por su id y un select de columnas
+    public static function selectFind($select, $id) {
+        $query = "SELECT ${select} FROM " . static::$tabla  ." WHERE id = ${id}";
+        $resultado = self::consultarSQL($query);
+        return array_shift( $resultado ) ;
+    }
+
     // Obtener Registros con cierta cantidad
     public static function get($limite) {
         $query = "SELECT * FROM " . static::$tabla . " LIMIT ${limite} ORDER BY id DESC" ;

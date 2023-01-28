@@ -22,24 +22,31 @@
     <div class="formulario__campo">
         <label for="categoria" class="formulario__label">Categoria:</label>
         <select name="categoria_id" class="formulario__select" id="categoria">
-            <option selected disabled>- Seleccionar -</option>
+            <option selected disabled value="">- Seleccionar -</option>
             <?php foreach($categorias as $categoria):?>
-                <option <?php echo ($evento->categoria_id === $categoria->id) ? 'selected' : '';?> value="<?php echo $categoria->id;?>"><?php echo $categoria->nombre;?></option>
+                <option
+                <?php echo ($evento->categoria_id === $categoria->id) ? 'selected' : '';?>
+                value="<?php echo $categoria->id;?>"><?php echo $categoria->nombre;?></option>
             <?php endforeach;?>
         </select>
     </div>
     <div class="formulario__campo">
-        <label for="categoria" class="formulario__label">Categoria:</label>
+        <label class="formulario__label">Dia:</label>
         <div class="formulario__radio">
             <?php foreach ($dias as $dia):?>
                 <div>
                     <label for="<?php echo strtolower($dia->nombre);?>"><?php echo strtoupper($dia->nombre);?></label>
-                    <input type="radio" name="dia_id" id="<?php echo strtolower($dia->nombre);?>" value="<?php echo $dia->id;?>">
+                    <input
+                        type="radio"
+                        name="dia_id"
+                        <?php echo $evento->dia_id === $dia->id ? 'checked' : ''; ?>
+                        id="<?php echo strtolower($dia->nombre);?>"
+                        value="<?php echo $dia->id;?>">
                 </div>
             <?php endforeach;?>
         </div>
 
-        <input type="hidden" name="dia_id"> <!-- este input es que se envia ala base de datos -->
+        <input type="hidden" name="dia_id" id="dia_id" value="<?php echo $evento->dia_id ?? '';?>"> <!-- este input es que se envia ala base de datos -->
     </div>
     <div class="formualrio__campo">
         <label for="" class="formulario__label">Selecciona la hora:</label>
@@ -50,7 +57,7 @@
         </ul>
     </div>
 
-    <input type="hidden" name="hora_id"> <!-- este input es que se envia ala base de datos -->
+    <input type="hidden" name="hora_id" value="<?php echo $evento->hora_id ?? '';?>"> <!-- este input es que se envia ala base de datos -->
 </fieldset>
 
 <fieldset class="formulario__fieldset">
@@ -63,6 +70,9 @@
             placeholder="Nombre del ponente"
             id="ponente">
     </div>
+    <ul class="listado-ponentes" id="listado-ponentes"></ul>
+    <input type="hidden" name="ponente_id">
+
     <div class="formulario__campo">
         <label for="disponibles" class="formulario__label">Lugares disponebles:</label>
         <input

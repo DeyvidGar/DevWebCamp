@@ -4,7 +4,7 @@ namespace Controllers;
 
 use Classes\Paginacion;
 use MVC\Router;
-use Model\Ponentes;
+use Model\Ponente;
 // import the Intervention Image Manager Class
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -14,23 +14,23 @@ class PonentesController {
         $alertas = [];
         $mensaje = $_GET['mensaje'] ?? null;
         $tipo = $_GET['tipo'] ?? null;
-        if($mensaje || $tipo){
+        if($mensaje && $tipo){
             $mensaje = filter_var($mensaje, FILTER_VALIDATE_INT);
             $tipo = s($tipo);
             if(!$mensaje || !$tipo) header('Location: /admin/ponentes?page=1');
             $mensaje = mostrarMensaje($mensaje);
-            Ponentes::setAlerta($tipo, $mensaje);
+            Ponente::setAlerta($tipo, $mensaje);
         }
-        $alertas = Ponentes::getAlertas();
+        $alertas = Ponente::getAlertas();
 
         $pagina_actual = $_GET['page'];
         $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
         $registros_por_pagina = 4;
-        $total_registros = Ponentes::total();
+        $total_registros = Ponente::total();
         $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total_registros);
         if(!$pagina_actual || $pagina_actual < 1 || $pagina_actual > $paginacion->total_paginas()) header('Location: /admin/ponentes?page=1');
 
-        $ponentes = Ponentes::paginar($registros_por_pagina, $paginacion->offset());
+        $ponentes = Ponente::paginar($registros_por_pagina, $paginacion->offset());
 
 
         $router->render('admin/ponentes/index', [
@@ -43,7 +43,7 @@ class PonentesController {
     public static function crear(Router $router) {
         // if(!isAuth()) redireccionarAuth();
         $alertas = [];
-        $ponente = new Ponentes;
+        $ponente = new Ponente;
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             // if(!isAuth()) redireccionarAuth();
@@ -104,7 +104,7 @@ class PonentesController {
         if(!$id) header('Location: /admin/ponentes');
 
         //buscamos por id
-        $ponente = Ponentes::find($id);
+        $ponente = Ponente::find($id);
         if(!$ponente) header('Location: /admin/ponentes');
 
         $ponente->imagen_actual = $ponente->imagen;
@@ -174,7 +174,7 @@ class PonentesController {
             if(!$id) header('Location: /admin/ponentes');
 
             //buscamos por id
-            $ponente = Ponentes::find($id);
+            $ponente = Ponente::find($id);
             if(!$ponente) header('Location: /admin/ponentes');
 
             $resultado = $ponente->eliminar();
