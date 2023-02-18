@@ -77,6 +77,14 @@
     margin: 6rem 0 3rem 0;
 }
 
+@mixin descripcion-pagina {
+    color: v.$gris-oscuro;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: v.$delgada;
+    margin-bottom: 5rem;
+}
+
 @mixin texto-fluido($min, $max) {
     font-size: clamp($min, -0.8rem + 12vw, $max);
 }
@@ -84,6 +92,7 @@
 @mixin texto-degradado($inicio, $final) {
     background: linear-gradient(to right, $inicio, $final);
     background-clip: text;
+    -webkit-background-clip: text;
     color: transparent;
 }
 
@@ -109,22 +118,22 @@
             -webkit-font-smoothing: antialiased;
             font-family: 'Font Awesome 6 Brands';
         }
-        &[href*="https://facebook.com"]::before {
+        &[href*="facebook.com"]::before {
             content: "\f39e";
         }
-        &[href*="https://github.com"]::before {
+        &[href*="github.com"]::before {
             content: "\f09b";
         }
-        &[href*="https://tiktok.com"]::before {
+        &[href*="tiktok.com"]::before {
             content: "\e07b";
         }
-        &[href*="https://instagram.com"]::before {
+        &[href*="instagram.com"]::before {
             content: "\f16d";
         }
-        &[href*="https://youtube.com"]::before {
+        &[href*="youtube.com"]::before {
             content: "\f167";
         }
-        &[href*="https://twitter.com"]::before {
+        &[href*="twitter.com"]::before {
             content: "\f099";
         }
     }
@@ -160,4 +169,14 @@
         font-size: 1.6rem;
         font-weight: v.$bold;
     }
+}
+
+@mixin card{
+    border: 1px solid lighten(v.$gris, 20);
+    padding: 3rem;
+        &--nombre{
+            font-weight: v.$black;
+            font-size: 2.6rem;
+            margin: 2rem 0;
+        }
 }

@@ -71,7 +71,7 @@
             id="ponente">
     </div>
     <ul class="listado-ponentes" id="listado-ponentes"></ul>
-    <input type="hidden" name="ponente_id">
+    <input type="hidden" name="ponente_id" value="<?php echo $evento->ponente_id;?>">
 
     <div class="formulario__campo">
         <label for="disponibles" class="formulario__label">Lugares disponebles:</label>

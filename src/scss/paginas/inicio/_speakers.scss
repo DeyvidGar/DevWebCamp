@@ -1,0 +1,64 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.speakers{
+    &__grid{
+        @include m.contenedor;
+        @include m.grid(1, 5rem);
+        @include m.tablet{
+            @include m.grid(2, 5rem);
+        }
+        @include m.desktop{
+            @include m.grid(3, 5rem);
+            // align-items: flex-start; //recorta el card al tamanio de cada uno
+        }
+    }
+}
+
+.speaker{
+    @include m.card;
+    background-position: center top;
+    background-size: 39rem;
+    @include m.tablet{
+        background-size: 28rem;
+    }
+    background-repeat: no-repeat;
+    //aplicamos una imagen de fondo con la funcion de for de sass, 4(0) + 1 = 1 / 4(1) + 1 = 5
+    @for $i from 1 through 4 {
+        &:nth-child(4n + #{$i}){
+            background-image: url('../img/bg_#{$i}.png');
+            background-image: image-set(
+                url('../img/bg_#{$i}.avif') 1x,
+                url('../img/bg_#{$i}.webp') 1x,
+                url('../img/bg_#{$i}.png') 1x,
+            );
+        }
+    }
+    &__imagen{
+        min-width: 35rem;
+        @include m.tablet {
+            // min-width: 15rem;
+            min-width: unset;
+        }
+        // max-height: 55rem;
+    }
+    &__informacion{}
+    &__nombre{
+        font-weight: v.$black;
+    }
+    &__ubicacion{
+        color: v.$gris;
+    }
+}
+
+.speaker-social{
+    @include m.menu-social(v.$negro, 2rem);
+}
+
+.speaker-skills{
+    &__listado-tags{
+        @include m.reset-lista;
+        @include m.tags;
+    }
+    &__tags{}
+}

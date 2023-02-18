@@ -1,0 +1,98 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.conferencias-workshop{
+    // padding: 5rem 0;
+    @include m.contenedor;
+}
+.eventos{
+    $modificador: &; //variable tempora;
+    &__heading{
+        color: v.$azul;
+        margin: 5rem 0;
+        text-align: left;
+        font-size: clamp(2rem, -0.9rem + 14vw, 6rem);
+    }
+    &__fecha{
+        color: v.$gris;
+        margin: 3rem 0 1rem 0;
+    }
+    &--workshops{
+        #{$modificador}__heading{ //concatenamos/interpolacion
+            color: v.$secundario;
+        }
+        .evento__informacion{
+            background-color: v.$secundario;
+            &:hover{
+                background-color: darken(v.$secundario, 10%);
+            }
+        }
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev{
+        color: rgba(v.$blanco, $alpha: 1.0);
+    }
+}
+
+.evento{
+    &__hora{
+        font-weight: v.$bold;
+    }
+    &__informacion{
+        padding: 2rem;
+        border-radius: 1rem;
+        background-color: v.$azul;
+        color: v.$blanco;
+        transition: 300ms background-color ease;
+
+        &:hover{
+            background-color: darken(v.$azul, 10%);
+        }
+        &--desabilitado{
+            opacity: .5;
+        }
+    }
+    &__nombre{
+        font-size: 2.4rem;
+        margin: 0;
+        @include m.tablet{
+            min-height: 5.5rem;
+        }
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+    }
+    &__contenido{
+        font-size: 1.6rem;
+        //LIMITAR UN CONTENEDOR DE TEXTO A X LINEAS DE TEXTO CON CSS
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+    }
+    &__autor-info{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+
+    }
+    &__autor-imagen{
+        width: 5rem;
+        background-color: v.$blanco;
+        border-radius: 50%;
+    }
+    &__autor-nombre{
+        font-weight: v.$bold;
+    }
+    &__agregar{
+        @include m.boton(darken(v.$azul, 9), v.$blanco);
+        margin: 2rem 0 0 0;
+        &:disabled{
+            cursor: no-drop;
+            opacity: .5;
+        }
+    }
+}

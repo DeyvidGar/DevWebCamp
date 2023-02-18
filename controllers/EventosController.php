@@ -30,10 +30,9 @@ class EventosController {
         $registros_por_pagina = 10;
         $total_registros = Evento::total();
         $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total_registros);
-        if(!$pagina_actual || $pagina_actual < 1 || $pagina_actual > $paginacion->total_paginas()) header('Location: /admin/eventos?page=1');
+        if(!$pagina_actual || $pagina_actual < 1) header('Location: /admin/eventos?page=1');
 
         $eventos = Evento::paginar($registros_por_pagina, $paginacion->offset());
-
 
         foreach($eventos as $evento){
             $evento->categoria_id = Categoria::selectFind('nombre', $evento->categoria_id);
@@ -87,7 +86,6 @@ class EventosController {
         $categorias = Categoria::all('ASC');
         $dias = Dia::all('ASC');
         $horas = Hora::all('ASC');
-        // $evento = new Evento;
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $evento->sincronizar($_POST);
@@ -107,5 +105,17 @@ class EventosController {
             'horas' => $horas,
             'evento' => $evento
         ]);
+    }
+
+    public static function eliminar() {
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $evento = Evento::find($_POST['id']);
+
+            if( !isset($evento) ) header('Location: /admin/eventos');
+
+            $resul = $evento->eliminar();
+
+            if($resul) header('Location: /admin/eventos');
+        }
     }
 }

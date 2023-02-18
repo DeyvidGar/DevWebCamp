@@ -34,15 +34,15 @@ function mostrarMensaje($codigo) : string {
 
 //esta funcion retorna un true o false si la ubicacion de la pagina actual contiene el valor de la variable path
 function pagina_actual($path) : bool {
-    return str_contains($_SERVER['PATH_INFO'], $path) ? true : false;;
+    return str_contains($_SERVER['PATH_INFO'] ?? '/', $path) ? true : false;;
 }
 
 function isAdmin() : bool {
-    session_start();
-    return is_null($_SESSION['admin']) && empty($_SESSION['admin']);
+    if(!isset($_SESSION)) session_start();
+    return !is_null($_SESSION['admin']) && !empty($_SESSION['admin']);
 }
 function isAuth() : bool {
-    session_start();
+    if(!isset($_SESSION)) session_start();
     return isset($_SESSION['nombre']) && !empty($_SESSION);
 }
 
@@ -51,4 +51,11 @@ function redireccionarAuth() : void {
 }
 function redireccionarLogin() : void {
     header('Location: /login');
+}
+
+//funcion para imprimir un valor aleatorio
+function aos_animation() : void {
+    $animaciones = ['fade-up','fade-down','fade-left','fade-right','flip-left','flip-right','zoom-out','zoom-out-up'];
+    $animacion = array_rand($animaciones, 1);
+    echo ' echo data-aos="'.$animaciones[$animacion].'" ';
 }

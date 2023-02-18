@@ -7,6 +7,19 @@
         const listadoPonentes = document.querySelector('#listado-ponentes');
         const ponenteHidden = document.querySelector('[name="ponente_id"]');
 
+        // esta funcion muestra el ponente seleccionado cuando se recarga la pagina o cuando se edita un eventos
+        if(ponenteHidden.value){
+            ( async () => {
+                // ya que esta funcion es async necesitamos usar un IFEE con async y await para mostrar el json
+                const ponente = await obtenerPonente(ponenteHidden.value);
+
+                //insertar HTML
+                const ponenteHTML = document.createElement('LI');
+                ponenteHTML.classList.add('listado-ponentes__ponente', 'listado-ponentes__ponente--seleccionado');
+                ponenteHTML.textContent = `${ponente.nombre} ${ponente.apellido}`;
+                listadoPonentes.appendChild(ponenteHTML);
+            })();
+        }
         obtenerPonentes();
         ponentesInput.addEventListener('input', leerInput);
 
@@ -16,6 +29,13 @@
             const ponentes = await resultadoConexion.json();
 
             formatearPonentes(ponentes);
+        }
+
+        async function obtenerPonente(id){
+            const url = `/api/ponente?id=${id}`;
+            const resultadoConexion = await fetch(url);
+            const ponente = await resultadoConexion.json();
+            return ponente;
         }
 
         function formatearPonentes(arrayPonentes = []){

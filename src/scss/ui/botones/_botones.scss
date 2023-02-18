@@ -5,7 +5,8 @@
     @include m.boton(v.$azul, v.$blanco);
     width: auto;
     align-self: flex-start;
-    &--registrar{
+    &--registrar,
+    &--full{
         width: 100%;
     }
 }
@@ -14,10 +15,20 @@
     border-radius: 10px;
     padding: 1rem;
 }
+.header__submit--logout{
+}
 .dashboard__boton{
     @include m.boton(v.$azul, v.$blanco);
     font-size: 1.4rem;
     @include m.tablet {
         width: auto;
     }
+}
+.boleto__enlace{
+    @include m.boton(v.$azul, v.$blanco);
+    width: auto;
+}
+.paquete__submit{
+    @include m.boton(v.$azul, v.$blanco);
+    margin-top: 3rem;
 }
