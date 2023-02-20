@@ -20,8 +20,11 @@ class RegistroController {
 
         // verificar si el usuario esta registrado
         $registro = Registro::where('usuario_id', $_SESSION['id']);
-        if(isset($registro) && $registro->paquete_id === '3')
+        if(isset($registro) && ($registro->paquete_id === '3' || $registro->paquete_id === '2'))
             header('Location: /boleto?id='.urlencode($registro->token));
+
+        if(isset($registro) && $registro->paquete_id === '1')
+            header('Location: /finalizar-registro/conferencias');
 
         $router->render('registro/index', [
             'titulo' => 'Finalizar registro'
@@ -93,7 +96,17 @@ class RegistroController {
         // validar que el usuario tenga el plan presencial
         $usuario_id = $_SESSION['id'];
         $registro = Registro::where('usuario_id', $usuario_id);
-        if($registro->paquete_id !== '1' || !$registro) header('Location: /');
+
+        // en caso de ser diferente al evento presencial es decir el evento o gratis o virtual lo redireccionamos al boleto
+        if(isset($registro) && $registro->paquete_id !== '2' )
+            header('Location: /boleto?id='.urlencode($registro->token));
+
+        // en caso de ser usuario sin registro
+        if( $registro->paquete_id !== '1' || isset($registro) ) header('Location: /');
+
+        // en caso de estar registrado con regalo y en eventos lo redirecionamos a su boleto virtual
+        if(isset($registro->regalo_id) && $registro->paquete_id === '1' )
+            header('Location: /boleto?id='.urlencode($registro->token));
 
         $eventos = Evento::ordenar('hora_id', 'ASC');
         //agrupar
@@ -168,7 +181,12 @@ class RegistroController {
             $resul = $registro->guardar();
             if($resul){
                 echo json_encode([
-                    'resultado' => $resul
+                    'resultado' => $resul,
+                    'token' => $registro->token
+                ]);
+            } else {
+                echo json_encode([
+                    'resultado' => false
                 ]);
             }
             return; // para evitar que en consola>red nos muestre el render en preview

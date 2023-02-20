@@ -52,7 +52,53 @@
             onError: function(err) {
               console.log(err);
             }
-          }).render('#paypal-button-container');
+          }).render('#paypal-button-container-presencial');
+
+          //boton para pase virtual
+          paypal.Buttons({
+            style: {
+              shape: 'rect',
+              color: 'blue',
+              layout: 'vertical',
+              label: 'paypal',
+
+            },
+
+            createOrder: function(data, actions) {
+              return actions.order.create({
+                purchase_units: [{"description":"Pago pase virtual DevWebCamp", "amount":{"currency_code":"USD","value":49}}]
+              });
+            },
+
+            onApprove: function(data, actions) {
+              //or  derData es toda la inforamacino que nos da paypal del pago
+              return actions.order.capture().then(function(orderData) {
+
+                // Full available details
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                //HACEMOS EL FETCH A NUESTRO SERVIDOR
+                const datos = new FormData();
+                datos.append('paquete_id', 2);
+                datos.append('pago_id', orderData.purchase_units[0].payments.captures[0].id );
+                // console.log(orderData.purchase_units[0].payments.captures[0].id);
+
+                fetch('/finalizar-registro/pagar', {
+                  method: 'POST',
+                  body: datos
+                })
+                .then(respuesta => respuesta.json())
+                .then(resultado => {
+                  if(resultado.resultado)
+                  actions.redirect('http://localhost:3000/boleto');
+                })
+              });
+            },
+
+            onError: function(err) {
+              console.log(err);
+            }
+          }).render('#paypal-button-container-virtual');
       }
       initPayPalButton();
   }

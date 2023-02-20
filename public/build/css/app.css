@@ -393,6 +393,13 @@ h3 {
 @media (min-width: 768px) {
   .paquetes__grid {
     display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .paquetes__grid {
+    display: grid;
     gap: 4rem;
     grid-template-columns: repeat(3, 1fr);
     align-items: flex-start;
@@ -1476,6 +1483,10 @@ h3 {
   width: min(95%, 80rem);
   margin: 0 auto;
 }
+.dashboard__grafica {
+  width: min(95%, 60rem);
+  margin: 0 auto;
+}
 
 .table {
   width: 100%;
@@ -1582,6 +1593,56 @@ h3 {
 .listado-ponentes__ponente--seleccionado:hover {
   background-color: #5bafff;
 }
+.bloques {
+  width: min(95%, 120rem);
+  margin: 0 auto;
+  margin: 4rem 0 0 0;
+}
+.bloques__grid {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+@media (min-width: 768px) {
+  .bloques__grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.bloque {
+  padding: 2rem;
+  color: #FFFFFF;
+  border-radius: 1rem;
+}
+.bloque:nth-child(1) {
+  background-image: linear-gradient(to left top, #F97316, #fba061);
+}
+.bloque:nth-child(2) {
+  background-image: linear-gradient(to left top, #7416f9, #a061fb);
+}
+.bloque:nth-child(3) {
+  background-image: linear-gradient(to left top, #00ff37, #4dff73);
+}
+.bloque:nth-child(4) {
+  background-image: linear-gradient(to left top, #bfff00, #d2ff4d);
+}
+.bloque__heading {
+  margin: 1rem 0 2rem 0;
+  font-size: 3.5rem;
+}
+.bloque__texto {
+  margin: 1rem 0;
+}
+.bloque__texto--total {
+  font-size: 5rem;
+  font-weight: 900;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+}
+
 .eventos-registro {
   width: min(95%, 120rem);
   margin: 0 auto;

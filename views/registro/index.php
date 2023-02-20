@@ -27,7 +27,7 @@
 
             <div id="smart-button-container">
                 <div style="text-align: center;">
-                    <div id="paypal-button-container"></div>
+                    <div id="paypal-button-container-presencial"></div>
                 </div>
             </div>
         </div>
@@ -40,6 +40,12 @@
                 <li class="paquete__elemento">Acceso a las grabaciones</li>
             </ul>
             <p class="paquete__precio">$49</p>
+
+            <div id="smart-button-container">
+                <div style="text-align: center;">
+                    <div id="paypal-button-container-virtual"></div>
+                </div>
+            </div>
         </div>
     </div>
 </main>

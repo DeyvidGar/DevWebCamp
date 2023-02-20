@@ -115,20 +115,21 @@ import Swal from 'sweetalert2';
                 body: datos
             });
             const resulatado = await respuesta.json();
+            console.log(resulatado)
             if(resulatado.resultado){
                 Swal.fire({
                     title: 'Registro exitoso!',
                     text: 'Tu registro fue creado correctamente, te esperamos en DevWebCamp :D',
                     icon: 'success',
                     confirmButtonText: 'Ok'
-                });
+                }).then( () => location.href = `/boleto?id=${resulatado.token}`);
             } else {
                 Swal.fire({
                     title: 'Error!',
-                    text: 'Hubo un error al crear tu registro recarga la pagina o intentalo de nuevo.',
+                    text: 'Hubo un error al crear tu registro, intentalo de nuevo.',
                     icon: 'error',
                     confirmButtonText: 'Ok'
-                });
+                }).then( () => location.reload() );
             }
         }
     }

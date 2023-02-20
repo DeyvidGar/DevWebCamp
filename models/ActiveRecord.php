@@ -126,14 +126,21 @@ class ActiveRecord {
 
     // Obtener Registros con cierta cantidad
     public static function get($limite) {
-        $query = "SELECT * FROM " . static::$tabla . " LIMIT ${limite} ORDER BY id DESC" ;
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC LIMIT ${limite}" ;
         $resultado = self::consultarSQL($query);
-        return array_shift( $resultado ) ;
+        return $resultado ;
     }
 
     // Consulta los registros y ordena una columna
     public static function ordenar($columna, $orden){
         $query = "SELECT * FROM " . static::$tabla . " ORDER BY ${columna} ${orden}";
+        $resultado = self::consultarSQL($query);
+        return $resultado ;
+    }
+
+    // Retornar por orden y con un limite
+    public static function ordenarLimite($columna, $orden, $limite){
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY ${columna} ${orden} LIMIT ${limite}";
         $resultado = self::consultarSQL($query);
         return $resultado ;
     }
@@ -162,6 +169,19 @@ class ActiveRecord {
     public static function total($columna = '', $valor = '') {
         $query = "SELECT COUNT(*) FROM " . static::$tabla;
         if($columna && $valor) $query .= " WHERE ${columna} = ${valor}";
+        $resultado = self::$db->query($query);//solo mustra el resultado de la consulta
+        $total = $resultado->fetch_array();//muestra los datos que requerimos del query
+        return array_shift( $total ) ;
+    }
+
+    //total registros con un Array Where - contamos los registros que cumplan con un WHERE de igualdad
+    public static function totalArray($array = []) {
+        $query = "SELECT COUNT(*) FROM " . static::$tabla . " WHERE ";
+        foreach ($array as $key => $value) {
+            // array_key_last($array); con los metodos de php identificamos el ultimo key(columna) que itera el arraglo que recibe.
+            if($key === array_key_last($array)) $query .= "${key} = ${value}";
+            else $query .= "${key} = ${value} AND ";
+        }
         $resultado = self::$db->query($query);//solo mustra el resultado de la consulta
         $total = $resultado->fetch_array();//muestra los datos que requerimos del query
         return array_shift( $total ) ;

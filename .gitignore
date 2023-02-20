@@ -3,5 +3,5 @@ node_modules/
 .env
 gulpfile.js
 package-lock.json
-package.json
 .DS_Store
+composer.lock

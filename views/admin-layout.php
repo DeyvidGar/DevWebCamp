@@ -22,6 +22,8 @@
             </main>
         </div>
 
+        <!-- libreria para grafica -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="/build/js/main.min.js" defer></script>
     </body>
 </html>

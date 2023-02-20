@@ -6,8 +6,12 @@
         @include m.contenedor;
         @include m.grid(1, 3rem);
         @include m.tablet{
+            @include m.grid(2, 2rem);
+            // align-items: flex-start;
+        }
+        @include m.desktop{
             @include m.grid(3, 4rem);
-            align-items: flex-start; // el
+            align-items: flex-start; // el contenedor se adapta al tamanio que ocupe
         }
     }
 }
